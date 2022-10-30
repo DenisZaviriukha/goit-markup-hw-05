@@ -16,6 +16,11 @@
     --portfolio-line:#EEEEEE;
     --hero-background:#C4C4C4;
     --icon-passive-color: #AFB1B8;
+    --animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --studio-text-background: rgba(47, 48, 58, 0.8);
+    --project-text-background: rgba(33, 150, 243, 0.9);
+    --backdrop-background:rgba(0, 0, 0, 0.2);
+    --modal-button-bor:rgba(0, 0, 0, 0.1);
 }
 
 /* h1,
@@ -139,6 +144,7 @@ img {
 
 .nav-item {
     margin-right: 50px;
+
 }
 
 .nav-item:last-child{
@@ -150,6 +156,21 @@ img {
     color: var(--heading-black-color);
     padding-top: 32px;
     padding-bottom: 32px;
+    transition: color var(--animation);
+    position: relative;
+}
+
+
+.current::after{
+    content:"";
+    display: flex;
+    background: var(--accent-color);
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
 }
 
 .nav-link:hover,
@@ -178,6 +199,7 @@ img {
     align-self: center;
     color: var(--paragraph-gray-color);
     fill: var(--paragraph-gray-color);
+    transition: color var(--animation), fill var(--animation);
 } 
 
 .contacts-link:hover,
@@ -275,6 +297,7 @@ img {
     letter-spacing: 0.06em;
     font-family:'Roboto';
     padding: 10px 32px;
+    transition: background var(--animation);
 }
 
 .hero-button:hover, .hero-button:focus{
@@ -373,12 +396,23 @@ img {
 }
 
 .studio-item {
-    /* margin-right: 30px; */
-    
+position: relative;
+text-align: center;
 }
 
-.studio-item:last-child{
-    /* margin-right: 0; */
+.studio-text{
+    position: absolute;
+    bottom:0;
+    padding-bottom: 27px;
+    padding-top: 27px;
+    width: 100%;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;
+    background: var(--studio-text-background);
+    color: var(--white-color);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 /*------------------------TEAM------------------------------*/
@@ -457,6 +491,7 @@ img {
     border-radius: 22px;
     background: var(--white-color);
     fill: var(--icon-passive-color);
+    transition: fill var(--animation), background var(--animation);
 }
 
 .team-icon-link:hover,
@@ -502,6 +537,7 @@ background: var(--accent-color);
     padding-bottom: 16px;
     padding-right: 32px;
     padding-left: 32px; */
+    transition: fill var(--animation), border-color var(--animation);
 }
 
 .client-link:hover,
@@ -547,14 +583,10 @@ background: var(--accent-color);
     color: var(--white-color);
 }
 
-.footer-street{
-    font-style: normal;
-    display: block;
-    margin-top: 20px;
-}
 
 .street-link{
     color: var(--white-color);
+    transition: color var(--animation)
 }
 
 .footer-contacts-link {
@@ -562,7 +594,9 @@ background: var(--accent-color);
     line-height: 1.71;
     letter-spacing: 0.03em;
     color:var(--footer-contacts-color);   
+    transition: color var(--animation)
 }
+
 
 .footer-contacts-item {
     font-style: normal;
@@ -591,7 +625,9 @@ background: var(--accent-color);
     font-size: 14px;
     line-height: 1.71;
     letter-spacing: 0.03em;
-    color: var(--white-color)
+    color: var(--white-color);
+    margin-top: 20px;
+    transition: color var(--animation);
 }
 
 .footer-icon-list {
@@ -615,12 +651,65 @@ background: var(--accent-color);
     border-radius: 22px;
     background: var(--footer-icons-background);
     fill: var(--white-color);
+    transition: fill var(--animation), background var(--animation);
 }
 
 .footer-icon-link:hover,
 .footer-icon-link:focus {
     fill: var(--white-color);
     background: var(--accent-color);
+}
+
+/* -----------------------MODAL_WINDOW------------------------ */
+
+.backdrop{
+    width: 100%;
+    height: 100%;
+    background: var(--backdrop-background);
+    position: fixed;
+    top: 0;
+    transition: opacity var(--animation), visibility var(--animation);
+}
+
+.modal{
+    background: var(--white-color);
+    box-shadow: 
+    0px 1px 3px rgba(0, 0, 0, 0.12), 
+    0px 1px 1px rgba(0, 0, 0, 0.14), 
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width:528px; 
+    min-height:581px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    position: absolute;
+    transition: transform var(--animation);
+}
+
+.backdrop.is-hidden .modal{
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.modal-close-button{
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--modal-button-bor);
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.backdrop.is-hidden{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 /*------------------------FILTERS------------------------------*/
 
@@ -632,8 +721,6 @@ background: var(--accent-color);
 }
 
 .portfolio{
-
-
 
 }
 
@@ -654,6 +741,7 @@ background: var(--accent-color);
     font-weight: 500;
     font-family: inherit;
     padding: 6px 25px;
+    transition: color var(--animation), background var(--animation), border-radius var(--animation), box-shadow var(--animation)
 }
 
 .filter-button:hover,
@@ -688,7 +776,44 @@ background: var(--accent-color);
     width: 370px; 
     margin-bottom: 30px;
     border: 1px solid var(--portfolio-line);
+    transition: box-shadow var(--animation);
+    
 }
+
+.project-mitten{
+    position:relative; 
+    align-items: center;
+    overflow: hidden;
+}
+
+.project-item:hover .project-text {
+    transform: translateY(0);
+    overflow: visible;
+    overflow: auto;
+}
+
+.project-text{
+    position: absolute;
+    text-decoration: none;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 63px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.56;
+    letter-spacing: 0.03em;
+    color: var(--white-color);
+    background: var(--project-text-background);
+    transform: translateY(100%);
+    transition: var(--animation) ;
+
+}
+
+
 
 .project-item:hover, 
 .project-item:focus{
@@ -696,6 +821,7 @@ background: var(--accent-color);
 0px 4px 4px rgba(0, 0, 0, 0.06),
 1px 4px 6px rgba(0, 0, 0, 0.16);  
 }
+
 
 .projects-space{
     padding-top: 20px;
